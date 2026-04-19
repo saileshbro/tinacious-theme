@@ -7,7 +7,11 @@
   "repository": "https://github.com/tinacious/vscode-tinacious-design-syntax",
   "scripts": {
     "publish": "vsce publish",
-    "json": "node ./scripts/generate_json_support.js"
+    "json": "node ./scripts/generate_json_support.js",
+    "build": "node ./scripts/build-warp.mjs && node ./scripts/build-zed.mjs",
+    "build:warp": "node ./scripts/build-warp.mjs",
+    "build:zed": "node ./scripts/build-zed.mjs",
+    "build:themes": "npm run build"
   },
   "engines": {
     "vscode": "^1.5.0"
@@ -27,7 +31,7 @@
       {
         "label": "Tinacious Design",
         "uiTheme": "vs-dark",
-        "path": "/themes/Tinacious Design-color-theme.json"
+        "path": "./themes/Tinacious Design-color-theme.json"
       },
       {
         "label": "Tinacious Design (Light)",
@@ -35,26 +39,16 @@
         "path": "./themes/Tinacious Design (Light)-color-theme.json"
       },
       {
-        "label": "Tinacious Design (legacy, 2016)",
-        "uiTheme": "vs-dark",
-        "path": "./themes/Tinacious-Design.tmTheme"
-      },
-      {
-        "label": "Tinacious Design (Light)  (legacy, 2017)",
-        "uiTheme": "vs",
-        "path": "./themes/Tinacious-Design-Light.tmTheme"
-      },
-      {
         "label": "Tinacious Design (High Contrast)",
         "uiTheme": "vs-dark",
-        "path": "/themes/Tinacious-Design-High-Contrast-color-theme.json"
+        "path": "./themes/Tinacious-Design-High-Contrast-color-theme.json"
       }
     ]
   },
   "icon": "icon.png",
   "devDependencies": {
-    "generator-code": "^1.2.12",
-    "vsce": "^1.83.0",
-    "yo": "^3.1.1"
+    "@vscode/vsce": "^3.7.1",
+    "generator-code": "^1.11.18",
+    "yo": "^7.0.1"
   }
 }

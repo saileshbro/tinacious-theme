@@ -1,31 +1,18 @@
-const prefix = 'source.json'
+const fs = require('fs');
+const path = require('path');
+
+const prefix = 'source.json';
 const structure = 'meta.structure.dictionary.json';
 const value = 'meta.structure.dictionary.value.json';
 const suffix = 'support.type.property-name.json';
 
-const colours = [
-  // Tileable Rainbow starting at blue
-  "#00CECA", // turquoise/blue
-  "#00BFFF", // blue
-  "#8590EC", // indigo
-  // "#B267E6", // indigo, a11y
-  "#FE3698", // pink
-  "#FF7086", // orangey pink
-  "#ffb070", // orange
-  "#FCCC66", // yellow
-  "#BBCE65", // yellowy green
-  "#59D065", // green
-  // "#00D364", // green, a11y
-];
+const tokens = JSON.parse(
+  fs.readFileSync(path.join(__dirname, '../palette/tokens.json'), 'utf8')
+);
+const colours = tokens.rainbow;
 
 // Supporting 4 rainbows. If you need more than that, I'm sorry on so many levels. 🙃
-const supportedColours = (
-  [].concat(colours)
-    .concat(colours)
-    .concat(colours)
-    .concat(colours)
-);
-
+const supportedColours = [].concat(colours).concat(colours).concat(colours).concat(colours);
 
 const buildScope = (level) => {
   let repeated = [];
@@ -49,4 +36,4 @@ const results = supportedColours.map((colour, i) => ({
   }
 }));
 
-console.log("\n\n\n" + JSON.stringify(results, null, 2) + "\n\n\n");
+console.log('\n\n\n' + JSON.stringify(results, null, 2) + '\n\n\n');
