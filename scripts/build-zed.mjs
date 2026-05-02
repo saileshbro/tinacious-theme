@@ -2,10 +2,7 @@
  * Emit Zed theme family JSON under dist/zed/ from palette/tokens.json.
  * @see https://zed.dev/docs/extensions/themes
  */
-import { mkdirSync, writeFileSync } from 'node:fs';
-import { join } from 'node:path';
-
-import { ANSI_ORDER, loadPalette, repoRoot } from './lib/load-palette.mjs';
+import { ansiPairs, loadPalette, writeDistFile } from './lib/load-palette.mjs';
 
 function zedHighlight(color, opts = {}) {
   const o = { color };
@@ -39,9 +36,9 @@ function zedThemeEntry(rainbow, v) {
     'terminal.foreground': t.foreground
   };
 
-  for (const k of ANSI_ORDER) {
-    style[`terminal.ansi.${k}`] = t.ansi[k];
-    style[`terminal.ansi.bright_${k}`] = t.ansiBright[k];
+  for (const { key, normal, bright } of ansiPairs(t)) {
+    style[`terminal.ansi.${key}`] = normal;
+    style[`terminal.ansi.bright_${key}`] = bright;
   }
 
   style.syntax = {
@@ -62,11 +59,7 @@ function zedThemeEntry(rainbow, v) {
 }
 
 function main() {
-  const palette = loadPalette();
-  const { meta, rainbow, variants } = palette;
-
-  const distZed = join(repoRoot, 'dist', 'zed');
-  mkdirSync(distZed, { recursive: true });
+  const { meta, rainbow, variants } = loadPalette();
 
   const zedDoc = {
     $schema: 'https://zed.dev/schema/themes/v0.2.0.json',
@@ -75,11 +68,7 @@ function main() {
     themes: [zedThemeEntry(rainbow, variants.dark), zedThemeEntry(rainbow, variants.light)]
   };
 
-  writeFileSync(
-    join(distZed, 'tinacious-design.json'),
-    `${JSON.stringify(zedDoc, null, 2)}\n`,
-    'utf8'
-  );
+  writeDistFile('zed', 'tinacious-design.json', `${JSON.stringify(zedDoc, null, 2)}\n`);
 
   console.log('Wrote dist/zed/tinacious-design.json from palette/tokens.json');
 }

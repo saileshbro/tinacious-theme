@@ -8,9 +8,12 @@
   "scripts": {
     "publish": "vsce publish",
     "json": "node ./scripts/generate_json_support.js",
-    "build": "node ./scripts/build-warp.mjs && node ./scripts/build-zed.mjs",
+    "build": "node ./scripts/build-warp.mjs && node ./scripts/build-zed.mjs && node ./scripts/build-opencode.mjs && node ./scripts/build-ghostty.mjs && node ./scripts/build-terminal.mjs",
     "build:warp": "node ./scripts/build-warp.mjs",
     "build:zed": "node ./scripts/build-zed.mjs",
+    "build:opencode": "node ./scripts/build-opencode.mjs",
+    "build:ghostty": "node ./scripts/build-ghostty.mjs",
+    "build:terminal": "node ./scripts/build-terminal.mjs",
     "build:themes": "npm run build"
   },
   "engines": {
