@@ -1,0 +1,14 @@
+# Keep the VSIX lean: include only files needed at runtime.
+.github/**
+.vscode/**
+code-samples/**
+dist/**
+docs/**
+images/**
+palette/**
+scripts/**
+node_modules/**
+package-lock.json
+.gitignore
+.nvmrc
+icon.svg
